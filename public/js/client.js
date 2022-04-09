@@ -7,20 +7,20 @@
           loadMessages(data)
         });
 
-    socket.on('products', listProd => {
-        loadProds(listProd)
+    socket.on('products', listproducts => {
+        loadProds(listproducts)
         });
 
     //---------------------funciones ---------------------
 
-    async function loadProds(listProd) {
+    async function loadProds(listproducts) {
         let htmlProd = ""
         const tableList = await fetch('views/partials/table.ejs').then(res => res.text())
  
-        if (listProd.length === 0){
+        if (listproducts.length === 0){
             htmlProd = `No se encontraron Productos`
         }else{
-            htmlProd = ejs.render(tableList, {listProd})
+            htmlProd = ejs.render(tableList, {listproducts})
      
         }
          document.getElementById('NuevaTabla').innerHTML = htmlProd;
@@ -62,7 +62,7 @@
         url: document.getElementById('url').value
         }
         socket.emit('newProd', newprod)
-    })
+        })
 
 
 }

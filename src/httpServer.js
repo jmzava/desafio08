@@ -11,6 +11,7 @@ const HistoryChatDB = require('./api/class/historychatdb')
 
 const storProdDB = new ProductosDB
 const historyDB = new HistoryChatDB
+let cargandoProd = 0 
 
 // ----------------socket-----------------------------------
 
@@ -39,7 +40,10 @@ io.on('connection', async (socket) => {
     socket.on('newProd', async dataProd =>{
    
         await storProdDB.saveProduct(dataProd)
+        
         const listdb = await storProdDB.listProds()
+       
+        console.log(cargandoProd)
         io.sockets.emit('products', listdb);
     })
 
