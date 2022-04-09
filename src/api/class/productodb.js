@@ -1,5 +1,5 @@
 const db = require('../../db/operations/operationsDB')
-const { options } = require('../../db/operations/MariaDB/options')
+const options = require('../../db/operations/configFileDB')
 
 class ProductContainerMDB {
     constructor() {
@@ -7,7 +7,7 @@ class ProductContainerMDB {
           }
   async listProds(){
             try {
-                const listProd = await db.list("productos", options)
+                const listProd = await db.list("productos", options.mariaDB)
                 return listProd
               } catch(error){
               throw new Error("Se produjo un error: " +  error.message)
@@ -22,7 +22,7 @@ class ProductContainerMDB {
                 url: product.url
             }
 
-            const addprod = await db.insert("productos", options, addNewProduct)
+            const addprod = await db.insert("productos", options.mariaDB, addNewProduct)
             return addNewProduct
     
         } catch(error){

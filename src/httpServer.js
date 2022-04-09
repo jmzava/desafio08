@@ -38,7 +38,7 @@ io.on('connection', async (socket) => {
 
     socket.on('newProd', async dataProd =>{
    
-        const newprod = await storProdDB.saveProduct(dataProd)
+        await storProdDB.saveProduct(dataProd)
         const listdb = await storProdDB.listProds()
         io.sockets.emit('products', listdb);
     })

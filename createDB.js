@@ -12,9 +12,9 @@ const operations = require('./src/db/operations/operationsDB');
 
 async function createTableSQL(){
     try{
-        await dbSQL.schema.hasTable("chatlog2").then( async function(exists) {
+        await dbSQL.schema.hasTable("chatlog").then( async function(exists) {
             if (!exists) {
-              await operations.createSQL("chatlog2", config.sqlite3)
+              await operations.createSQL("chatlog", config.sqlite3)
             } else{
                 console.log("tabla en sqlite3 ya existe")
 

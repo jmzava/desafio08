@@ -12,7 +12,6 @@ module.exports = {
     insert:(table, options, content)=>{
                 const knex = require ('knex')(options)
                 let addRecord = knex(table).insert(content)
-                                    .then(()=>console.log("datos ingresados"))
                                     .catch((err)=> {console.log(err); throw err})
                                     .finally(()=> {knex.destroy()})
                 return 

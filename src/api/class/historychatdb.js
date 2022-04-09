@@ -1,5 +1,5 @@
 const db = require('../../db/operations/operationsDB')
-const { options } = require('../../db/operations/sqlite3/options')
+const options = require('../../db/operations/configFileDB')
 const moment = require('moment');
 
 class ChatContainerSQLite3 {
@@ -8,7 +8,7 @@ class ChatContainerSQLite3 {
           }
     async listMessages(){
             try {
-                const listchat = await db.list("chatlog", options)
+                const listchat = await db.list("chatlog", options.sqlite3)
                 return listchat
               } catch(error){
               throw new Error("Se produjo un error: " +  error.message)
@@ -21,7 +21,7 @@ class ChatContainerSQLite3 {
                     text: data.text,
                     date: moment().format('L LTS')
                 }
-                const addmsg = await db.insert("chatlog", options, newMessage)
+                const addmsg = await db.insert("chatlog", options.sqlite3, newMessage)
             }catch(e){
                  throw new Error(e.message)
                 }
@@ -29,4 +29,4 @@ class ChatContainerSQLite3 {
             }
 }
        
-module.exports = ChatContainerSQLite3
+module.exports = ChatContainerSQLite3 
