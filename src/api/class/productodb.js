@@ -13,10 +13,22 @@ class ProductContainerMDB {
               throw new Error("Se produjo un error: " +  error.message)
           }
         }
-         
-      
 
-      
+  async saveProduct(product){
+        try{
+           const addNewProduct = {
+                title: product.title,
+                price: product.price,
+                url: product.url
+            }
+
+            const addprod = await db.insert("productos", options, addNewProduct)
+            return addNewProduct
+    
+        } catch(error){
+            throw new Error("Se produjo un error al guardar el producto : " +  error.message)
+        }
       }
-       
+}
+     
 module.exports = ProductContainerMDB
