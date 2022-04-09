@@ -8,14 +8,22 @@ class ChatContainerSQLite3 {
           }
     async listMessages(){
             try {
+                const exist = await db.exist("chatlog", options.sqlite3)
+                if(!exist){
+                    return exist
+                }
                 const listchat = await db.list("chatlog", options.sqlite3)
                 return listchat
               } catch(error){
-              throw new Error("Se produjo un error: " +  error.message)
+              throw new Error("Se produjo un error: " +  error.message )
           }
         }
     async saveMessage(data){
             try{
+                const exist = await db.exist("chatlog", options.sqlite3)
+                if(!exist){
+                    return exist
+                }
                 const newMessage = {
                     email: data.email,
                     text: data.text,

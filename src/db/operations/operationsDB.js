@@ -1,20 +1,20 @@
 
 module.exports = {
-    list:(table, options)=>{
+    list:async (table, options)=>{
                 const knex = require ('knex')(options)
-                let lista = knex(table).select('*')
-                                .then(rows => {return rows})
-                                .catch((err)=> {console.log(err); throw err})
-                                .finally(()=> {knex.destroy()})
+                let lista = await knex(table).select('*')
                 return lista   
                 }
     ,
-    insert:(table, options, content)=>{
+    insert:async (table, options, content)=>{
                 const knex = require ('knex')(options)
-                let addRecord = knex(table).insert(content)
-                                    .catch((err)=> {console.log(err); throw err})
-                                    .finally(()=> {knex.destroy()})
+                let addRecord = await knex(table).insert(content)
                 return 
+    },
+    exist:async(table, options)=>{
+                const knex = require ('knex')(options)
+                let exist = knex.schema.hasTable(table)
+                return exist
     },
     createMDB:(dbTable, options)=>{
                  const knex = require ('knex')(options)

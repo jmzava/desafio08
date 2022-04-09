@@ -4,12 +4,20 @@
 
 
     socket.on('messages', data => {
+        if(data){
           loadMessages(data)
+        } else{
+            alert("base de chat no esta levantada")
+        }
         });
 
     socket.on('products', listproducts => {
-        loadProds(listproducts)
-        });
+        if(listproducts){
+            loadProds(listproducts)
+        } else{
+            alert("base de productos no esta levantada")
+        }
+       });
 
     //---------------------funciones ---------------------
 

@@ -7,6 +7,11 @@ class ProductContainerMDB {
           }
   async listProds(){
             try {
+              const exist = await db.exist("productos", options.mariaDB)
+              if(!exist){
+
+                  return exist
+              }
                 const listProd = await db.list("productos", options.mariaDB)
                 return listProd
               } catch(error){
@@ -16,6 +21,10 @@ class ProductContainerMDB {
 
   async saveProduct(product){
         try{
+          const exist = await db.exist("productos", options.mariaDB)
+          if(!exist){
+              return exist
+          }
            const addNewProduct = {
                 title: product.title,
                 price: product.price,

@@ -11,40 +11,27 @@ const HistoryChatDB = require('./api/class/historychatdb')
 
 const storProdDB = new ProductosDB
 const historyDB = new HistoryChatDB
-let cargandoProd = 0 
 
 // ----------------socket-----------------------------------
 
 io.on('connection', async (socket) => {
 
+//----------------------- socket mensajes 
 
-    //----------------- primer carga a la base
-
-    const loadMessage = await historyDB.listMessages()
-    const loadProducts = await storProdDB.listProds() 
-
-    //----------------------- socket mensajes 
-
-    socket.emit('messages', loadMessage )
+    socket.emit('messages', await historyDB.listMessages()  )
     
     socket.on('new-message',async data => {
         await historyDB.saveMessage(data)
-        const message2 = await historyDB.listMessages()
-        io.sockets.emit('messages', message2 );
+        io.sockets.emit('messages', await historyDB.listMessages() );
     });
 
 //----------------------- socket productos
 
-    socket.emit('products', loadProducts)
+    socket.emit('products', await storProdDB.listProds())
 
     socket.on('newProd', async dataProd =>{
-   
         await storProdDB.saveProduct(dataProd)
-        
-        const listdb = await storProdDB.listProds()
-       
-        console.log(cargandoProd)
-        io.sockets.emit('products', listdb);
+        io.sockets.emit('products', await storProdDB.listProds());
     })
 
     })
